@@ -1,0 +1,93 @@
+### Health Check
+GET http://localhost:11434
+
+### List Models
+GET http://localhost:11434/api/tags
+
+### Chat - Single Message
+POST http://localhost:11434/api/chat
+Content-Type: application/json
+
+{
+  "model": "llama3",
+  "messages": [
+    {"role": "user", "content": "Hello, how are you?"}
+  ],
+  "stream": false
+}
+
+### Chat - With System Prompt
+POST http://localhost:11434/api/chat
+Content-Type: application/json
+
+{
+  "model": "llama3",
+  "messages": [
+    {"role": "system", "content": "You are a helpful Java developer assistant."},
+    {"role": "user", "content": "Explain the difference between HashMap and ConcurrentHashMap."}
+  ],
+  "stream": false
+}
+
+### Chat - Multi-turn Conversation
+POST http://localhost:11434/api/chat
+Content-Type: application/json
+
+{
+  "model": "llama3",
+  "messages": [
+    {"role": "user", "content": "What is Spring Boot?"},
+    {"role": "assistant", "content": "Spring Boot is a framework that simplifies building production-ready Spring applications."},
+    {"role": "user", "content": "How do I create a REST controller?"}
+  ],
+  "stream": false
+}
+
+### Generate - Single Prompt (no conversation)
+POST http://localhost:11434/api/generate
+Content-Type: application/json
+
+{
+  "model": "llama3",
+  "prompt": "Write a Java method that reverses a string",
+  "stream": false
+}
+
+### Generate - With Temperature
+POST http://localhost:11434/api/generate
+Content-Type: application/json
+
+{
+  "model": "llama3",
+  "prompt": "Give me 3 creative project names for a payment API",
+  "stream": false,
+  "options": {
+    "temperature": 0.9
+  }
+}
+
+### Pull a Model
+POST http://localhost:11434/api/pull
+Content-Type: application/json
+
+{
+  "name": "llama3",
+  "stream": false
+}
+
+### Show Model Info
+POST http://localhost:11434/api/show
+Content-Type: application/json
+
+{
+  "name": "llama3"
+}
+
+### Embeddings
+POST http://localhost:11434/api/embeddings
+Content-Type: application/json
+
+{
+  "model": "llama3",
+  "prompt": "Ollama is a tool for running LLMs locally"
+}

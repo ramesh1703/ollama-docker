@@ -1,0 +1,35 @@
+services:
+  ollama:
+    build: .
+    ports:
+      - "11434:11434"
+    environment:
+      - OLLAMA_HOST=0.0.0.0
+      - MODELS=llama3,codellama,mistral
+    volumes:
+      - ollama_data:/root/.ollama
+    # Uncomment the block below on Linux hosts with NVIDIA GPUs.
+    # On macOS (Intel or Apple Silicon), leave it commented out —
+    # Docker cannot access the GPU, so Ollama runs on CPU.
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - driver: nvidia
+    #           count: all
+    #           capabilities: [gpu]
+
+  open-webui:
+    image: ghcr.io/open-webui/open-webui:main
+    ports:
+      - "3000:8080"
+    environment:
+      - OLLAMA_BASE_URL=http://ollama:11434
+    volumes:
+      - openwebui_data:/app/backend/data
+    depends_on:
+      - ollama
+
+volumes:
+  ollama_data:
+  openwebui_data:
