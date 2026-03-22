@@ -2,6 +2,8 @@
 set -e
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+REPO_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
+COMPOSE_FILE="$REPO_ROOT/docker-compose.yml"
 CPUS=4
 MEMORY=8
 
@@ -16,7 +18,7 @@ echo "Switching Docker context to colima..."
 docker context use colima
 
 echo "Building and starting Ollama stack..."
-docker compose -f "$SCRIPT_DIR/docker-compose.yml" up -d --build
+docker compose -f "$COMPOSE_FILE" up -d --build
 
 echo ""
 echo "Ollama is available at http://localhost:11434"
